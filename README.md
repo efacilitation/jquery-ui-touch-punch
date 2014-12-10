@@ -1,4 +1,10 @@
 # jQuery UI Touch Punch
+
+## Reason of fork
+
+The original jQuery UI Touch Punch repository has currently over 100 open issues and many different forks.
+This fork ensures that DOM events for inputs and textareas will not be canceled so editing these is possible.
+
 ## Touch Event Support for jQuery UI
 
 > **jQuery UI Touch Punch is a small hack that enables the use of touch events on sites using the jQuery UI user interface library.**
