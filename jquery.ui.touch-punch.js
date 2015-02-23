@@ -84,6 +84,7 @@
     touchHandled = true;
 
     // Track movement to determine if interaction was a click
+    console.log('START >> ', this._getTouchCoords(event));
     self._touchMoved = false;
 
     // Simulate the mouseover event
@@ -108,11 +109,23 @@
     }
 
     // Interaction was not a click
+    console.log('MOVE >> ', this._getTouchCoords(event));
     this._touchMoved = true;
 
     // Simulate the mousemove event
     simulateMouseEvent(event, 'mousemove');
   };
+
+  /**
+  * Get the x,y position of a touch event
+  * @param {Object} event A touch event
+  */
+  mouseProto._getTouchCoords (event) {
+    return {
+      x: event.originalEvent.changedTouches[0].pageX,
+      y: event.originalEvent.changedTouches[0].pageY
+    };
+  }
 
   /**
    * Handle the jQuery UI widget's touchend events
