@@ -110,7 +110,7 @@
 
     // Interaction was not a click
     touchMoveCoords = this._getTouchCoords(event);
-    if (this._touchStartCoords && (this._touchStartCoords.x !== touchMoveCoords.x || this._touchStartCoords.y !== this.touchMoveCoords.y))
+    if (this._touchStartCoords && (this._touchStartCoords.x !== touchMoveCoords.x || this._touchStartCoords.y !== touchMoveCoords.y))
       this._touchMoved = true;
 
     // Simulate the mousemove event
