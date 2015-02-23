@@ -84,7 +84,7 @@
     touchHandled = true;
 
     // Track movement to determine if interaction was a click
-    console.log('START >> ', this._getTouchCoords(event));
+    self._touchStartCoords = this._getTouchCoords(event);
     self._touchMoved = false;
 
     // Simulate the mouseover event
@@ -109,8 +109,9 @@
     }
 
     // Interaction was not a click
-    console.log('MOVE >> ', this._getTouchCoords(event));
-    this._touchMoved = true;
+    touchMoveCoords = this._getTouchCoords(event);
+    if (this._touchStartCoords && (this._touchStartCoords.x !== touchMoveCoords.x || this._touchStartCoords.y !== this.touchMoveCoords.y))
+      this._touchMoved = true;
 
     // Simulate the mousemove event
     simulateMouseEvent(event, 'mousemove');
