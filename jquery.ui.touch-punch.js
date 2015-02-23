@@ -120,12 +120,12 @@
   * Get the x,y position of a touch event
   * @param {Object} event A touch event
   */
-  mouseProto._getTouchCoords (event) {
+  mouseProto._getTouchCoords = function (event) {
     return {
       x: event.originalEvent.changedTouches[0].pageX,
       y: event.originalEvent.changedTouches[0].pageY
     };
-  }
+  };
 
   /**
    * Handle the jQuery UI widget's touchend events
