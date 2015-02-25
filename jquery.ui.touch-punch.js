@@ -109,7 +109,7 @@
     }
 
     // Interaction was not a click
-    touchMoveCoords = this._getTouchCoords(event);
+    var touchMoveCoords = this._getTouchCoords(event);
     if (this._touchStartCoords && (this._touchStartCoords.x !== touchMoveCoords.x || this._touchStartCoords.y !== touchMoveCoords.y))
       this._touchMoved = true;
 
