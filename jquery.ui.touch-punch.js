@@ -38,7 +38,7 @@
     var touch = event.originalEvent.changedTouches[0],
         simulatedEvent = document.createEvent('MouseEvents');
 
-    if ($(touch.target).is(":input")) {
+    if ($(touch.target).is(":input, [contenteditable]")) {
       event.stopPropagation();
     } else {
       event.preventDefault();
