@@ -35,10 +35,11 @@
       return;
     }
 
-    var touch = event.originalEvent.changedTouches[0],
-        simulatedEvent = document.createEvent('MouseEvents');
+    var touch = event.originalEvent.changedTouches[0];
+    var simulatedEvent = document.createEvent('MouseEvents');
 
-    if ($(touch.target).is(":input, [contenteditable]")) {
+
+    if ($(touch.target).is(':input, [contenteditable]')) {
       event.stopPropagation();
     } else {
       event.preventDefault();
