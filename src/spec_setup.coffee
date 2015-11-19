@@ -7,6 +7,7 @@ if !root._spec_setup
   root.chai     = require 'chai'
   root.expect   = chai.expect
   root.sandbox  = sinon.sandbox.create()
+  root.jQuery   = require 'jquery'
 
   sinonChai = require 'sinon-chai'
   isSinonChaiIncludedAsBrowserPackage = typeof sinonChai is 'function'
