@@ -1,7 +1,6 @@
-mocha = require 'gulp-mocha'
 webpackStream = require 'webpack-stream'
 runSequence = require 'run-sequence'
-karma = require 'gulp-karma'
+KarmaServer = require('karma').Server
 
 require 'coffee-loader'
 
@@ -24,8 +23,9 @@ module.exports = (gulp) ->
     .pipe gulp.dest 'dist/specs'
 
 
-  gulp.task 'specs:run', ->
-    gulp.src 'dist/specs/specs.js'
-    .pipe karma
-      configFile: 'karma.conf.coffee'
-      action: 'start'
+  gulp.task 'specs:run', (done) ->
+    karmaServer = new KarmaServer
+      configFile: __dirname + '/karma.conf.coffee',
+      singleRun: true
+    , done
+    karmaServer.start()
