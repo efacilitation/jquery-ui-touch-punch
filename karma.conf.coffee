@@ -36,7 +36,7 @@ module.exports = (config) ->
     # - Opera
     # - Safari
     # - PhantomJS
-    browsers: ['PhantomJS']
+    browsers: ['Chrome']
 
     # Continuous Integration mode
     # if true, it capture browsers, run tests and exit
@@ -48,6 +48,6 @@ module.exports = (config) ->
 
     plugins: [
       'karma-mocha'
-      'karma-phantomjs-launcher'
+      'karma-chrome-launcher'
       'karma-spec-reporter'
     ]
