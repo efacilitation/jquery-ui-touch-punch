@@ -21,18 +21,12 @@
     "test": "node_modules/.bin/gulp specs",
     "prepublish": "node_modules/.bin/gulp build"
   },
-  "dependencies": {
-    "eventric-remote-inmemory": "0.1.1"
-  },
   "devDependencies": {
     "chai": "2.3.0",
     "coffee-loader": "0.7.2",
     "coffee-script": "1.9.3",
     "es6-promise": "2.1.1",
-    "gulp-coffee": "2.3.1",
     "gulp-karma": "0.0.4",
-    "gulp-mocha": "2.1.0",
-    "gulp-symlink": "2.1.2",
     "gulp-util": "3.0.5",
     "gulp-watch": "4.2.4",
     "gulp": "3.9.0",
