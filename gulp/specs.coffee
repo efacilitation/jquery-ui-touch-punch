@@ -25,7 +25,7 @@ module.exports = (gulp) ->
 
   gulp.task 'specs:run', (done) ->
     karmaServer = new KarmaServer
-      configFile: __dirname + '/karma.conf.coffee',
+      configFile: __dirname + '/../karma.conf.coffee',
       singleRun: true
     , done
     karmaServer.start()
