@@ -41,10 +41,6 @@ module.exports = (config) ->
     # - Safari
     # - PhantomJS
     browsers: ['Chrome']
-    if process.env.TRAVIS
-      configuration.browsers = ['Chrome_travis_ci']
-
-
 
     # Continuous Integration mode
     # if true, it capture browsers, run tests and exit
@@ -59,3 +55,7 @@ module.exports = (config) ->
       'karma-chrome-launcher'
       'karma-spec-reporter'
     ]
+
+  if process.env.TRAVIS
+    config.set
+      browsers: ['Chrome_travis_ci']
