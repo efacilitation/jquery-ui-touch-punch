@@ -28,6 +28,11 @@ module.exports = (config) ->
     # enable / disable watching file and executing tests whenever any file changes
     autoWatch: no
 
+    customLaunchers:
+      Chrome_travis_ci:
+        base: 'Chrome'
+        flags: ['--no-sandbox']
+
     # Start these browsers, currently available:
     # - Chrome
     # - ChromeCanary
@@ -36,6 +41,10 @@ module.exports = (config) ->
     # - Safari
     # - PhantomJS
     browsers: ['Chrome']
+    if process.env.TRAVIS
+      configuration.browsers = ['Chrome_travis_ci']
+
+
 
     # Continuous Integration mode
     # if true, it capture browsers, run tests and exit
