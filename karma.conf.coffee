@@ -7,6 +7,7 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
+      'src/spec.css'
       'dist/specs/specs.js'
     ]
 
@@ -29,9 +30,9 @@ module.exports = (config) ->
     autoWatch: no
 
     customLaunchers:
-      Chrome_travis_ci:
+      ChromeWithFlags:
         base: 'Chrome'
-        flags: ['--no-sandbox']
+        flags: ['--no-sandbox', '--touch-events']
 
     # Start these browsers, currently available:
     # - Chrome
@@ -40,7 +41,7 @@ module.exports = (config) ->
     # - Opera
     # - Safari
     # - PhantomJS
-    browsers: ['Chrome']
+    browsers: ['ChromeWithFlags']
 
     # Continuous Integration mode
     # if true, it capture browsers, run tests and exit
@@ -55,7 +56,3 @@ module.exports = (config) ->
       'karma-chrome-launcher'
       'karma-spec-reporter'
     ]
-
-  if process.env.TRAVIS
-    config.set
-      browsers: ['Chrome_travis_ci']

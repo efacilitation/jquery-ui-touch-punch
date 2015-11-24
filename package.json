@@ -30,6 +30,7 @@
     "gulp-util": "3.0.7",
     "gulp-watch": "4.3.5",
     "jquery": "2.1.4",
+    "jquery-ui": "1.10.5",
     "karma-chrome-launcher": "0.2.1",
     "karma-mocha": "0.2.1",
     "karma-spec-reporter": "0.0.22",

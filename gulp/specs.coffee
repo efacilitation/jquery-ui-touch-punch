@@ -13,8 +13,8 @@ module.exports = (gulp) ->
     runSequence 'specs:build', 'specs:run', done
 
 
-  gulp.task 'specs:watch', (done) ->
-    runSequence 'specs:build', 'specs:run:server', done
+  gulp.task 'specs:onRunningServer', (done) ->
+    runSequence 'specs:build', 'specs:run:onRunningServer', done
 
 
   gulp.task 'specs:build', ->
@@ -30,13 +30,13 @@ module.exports = (gulp) ->
     .pipe gulp.dest 'dist/specs'
 
 
-  gulp.task 'specs:run:server', (done) ->
-    if not karmaServer
-      createKarmaServer()
+  gulp.task 'specs:startServer', (done) ->
+    createKarmaServer()
+    karmaServer.inBackground done
 
-    karmaServer.start ->
-      console.log 'start'
-      done()
+
+  gulp.task 'specs:run:onRunningServer', (done) ->
+    karmaServer.run done
 
 
   gulp.task 'specs:run', (done) ->

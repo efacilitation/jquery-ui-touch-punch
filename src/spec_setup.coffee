@@ -8,6 +8,10 @@ if !root._spec_setup
   root.expect   = chai.expect
   root.sandbox  = sinon.sandbox.create()
   root.jQuery   = require 'jquery'
+  root.$        = root.jQuery
+  require 'jquery-ui'
+  require './jquery.ui.touch-punch'
+
 
   sinonChai = require 'sinon-chai'
   isSinonChaiIncludedAsBrowserPackage = typeof sinonChai is 'function'
