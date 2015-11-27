@@ -1,5 +1,4 @@
 describe 'jquery-ui-touch-punch', ->
-  stopPropagationSpy = null
   $bodyElement = null
 
   createTouchEvent = (type, target) ->
@@ -30,12 +29,14 @@ describe 'jquery-ui-touch-punch', ->
       screenY: event.screenY
     } ]
 
+    sandbox.spy touchEvent, 'stopPropagation'
+    sandbox.spy touchEvent, 'preventDefault'
+
     return touchEvent
 
 
   beforeEach ->
     $bodyElement = $ 'body'
-    stopPropagationSpy = sandbox.spy Event::, 'stopPropagation'
 
 
   afterEach ->
@@ -45,41 +46,70 @@ describe 'jquery-ui-touch-punch', ->
     $draggableElement.remove()
 
 
-  it 'should propagate the touch start event given it is not a input or a contenteditable draggable element', ->
-    $draggableElement = $ '<div class="draggable"></div>'
-    $draggableElement.draggable()
+  describe 'triggering a touchstart event', ->
 
-    $bodyElement.append $draggableElement
+    describe 'given the target is not a input or a contenteditable draggable element', ->
 
-    expectTouchStartEvent = (event) ->
-      expect(event.type).to.be.equal 'touchstart'
+      touchEvent = null
+      $draggableElement = null
 
-    $bodyElement.on 'touchstart', expectTouchStartEvent
+      beforeEach ->
+        $draggableElement = $ '<div class="draggable"></div>'
+        $draggableElement.draggable()
 
-    touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
-    $draggableElement[0].dispatchEvent touchEvent
-    expect(stopPropagationSpy).to.not.have.been.called
-
-    $bodyElement.off 'touchstart', expectTouchStartEvent
+        $bodyElement.append $draggableElement
+        touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
 
 
-  it 'should not propagate the touch start event given it is a :input draggable element', ->
-    $draggableElement = $ '<input class="draggable"></input>'
-    $draggableElement.draggable()
-
-    $bodyElement.append $draggableElement
-
-    touchEvent = createTouchEvent 'touchstart', $draggableElement.get 0
-    $draggableElement.get(0).dispatchEvent touchEvent
-    expect(stopPropagationSpy).to.have.been.calledThrice
+      it 'should not stop the propagation of the event', ->
+        expectTouchStartEvent = (event) ->
+          expect(event.type).to.be.equal 'touchstart'
+          $bodyElement.off 'touchstart', expectTouchStartEvent
+        $bodyElement.on 'touchstart', expectTouchStartEvent
+        $draggableElement[0].dispatchEvent touchEvent
+        expect(touchEvent.stopPropagation).to.not.have.been.called
 
 
-  it 'should not propagate the touch start event given it is a contenteditable draggable element', ->
-    $draggableElement = $('<div class="draggable" contenteditable></div>')
-    $draggableElement.draggable()
+      it 'should prevent the default action of the event', ->
+        $draggableElement[0].dispatchEvent touchEvent
+        expect(touchEvent.preventDefault).to.have.been.called
 
-    $bodyElement.append $draggableElement
 
-    touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
-    $draggableElement[0].dispatchEvent touchEvent
-    expect(stopPropagationSpy).to.have.been.calledThrice
+    describe 'given the target is a :input draggable element', ->
+
+      touchEvent = null
+
+      beforeEach ->
+        $draggableElement = $ '<input class="draggable"></input>'
+        $draggableElement.draggable()
+        $bodyElement.append $draggableElement
+        touchEvent = createTouchEvent 'touchstart', $draggableElement.get 0
+        $draggableElement.get(0).dispatchEvent touchEvent
+
+
+      it 'should stop the propagation of the event ', ->
+        expect(touchEvent.stopPropagation).to.have.been.calledThrice
+
+
+      it 'should not prevent the default action of the event', ->
+        expect(touchEvent.preventDefault).not.to.have.been.called
+
+
+    describe 'given the target is a contenteditable draggable element', ->
+
+      touchEvent = null
+
+      beforeEach ->
+        $draggableElement = $('<div class="draggable" contenteditable></div>')
+        $draggableElement.draggable()
+        $bodyElement.append $draggableElement
+        touchEvent = createTouchEvent 'touchstart', $draggableElement.get 0
+        $draggableElement[0].dispatchEvent touchEvent
+
+
+      it 'should stop the propagation of the event ', ->
+        expect(touchEvent.stopPropagation).to.have.been.calledThrice
+
+
+      it 'should not prevent the default action of the event', ->
+        expect(touchEvent.preventDefault).not.to.have.been.called
