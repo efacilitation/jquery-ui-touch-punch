@@ -14,6 +14,6 @@ module.exports = (gulp) ->
       library: 'jquery-ui-touch-punch'
       filename: 'jquery.ui.touch-punch.js'
 
-    gulp.src ['src/jquery.ui.touch-punch.js']
+    gulp.src ['src/jquery.ui.touch-punch.coffee']
     .pipe webpack webpackConfig
     .pipe gulp.dest 'dist/release'
