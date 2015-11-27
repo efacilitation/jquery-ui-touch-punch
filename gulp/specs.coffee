@@ -24,7 +24,7 @@ module.exports = (gulp) ->
 
     gulp.src [
       'src/spec_setup.coffee'
-      'src/**/*.+(coffee|js)'
+      'src/**/*.coffee'
     ]
     .pipe webpackStream webpackConfig
     .pipe gulp.dest 'dist/specs'
