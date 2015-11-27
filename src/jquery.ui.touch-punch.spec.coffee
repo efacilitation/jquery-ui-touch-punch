@@ -1,5 +1,6 @@
 describe 'jquery-ui-touch-punch', ->
   stopPropagationSpy = null
+  $bodyElement = null
 
   createTouchEvent = (type, target) ->
     touchEvent = document.createEvent 'MouseEvents'
@@ -37,38 +38,39 @@ describe 'jquery-ui-touch-punch', ->
 
 
   afterEach ->
-    $draggableElement = $('body').find '.draggable'
+    $bodyElement = $ 'body'
+    $draggableElement = $bodyElement.find '.draggable'
     touchEvent = createTouchEvent 'touchend', $draggableElement[0]
-    $draggableElement[0].dispatchEvent touchEvent
+    $draggableElement.get(0).dispatchEvent touchEvent
     $draggableElement.remove()
 
 
-  it 'should propagate the touch start event given it is not a input or not a contenteditable draggable element', ->
-    $draggableElement = $('<div class="draggable"></div>')
+  it 'should propagate the touch start event given it is not a input or a contenteditable draggable element', ->
+    $draggableElement = $ '<div class="draggable"></div>'
     $draggableElement.draggable()
 
-    $('body').append $draggableElement
+    $bodyElement.append $draggableElement
 
     expectTouchStartEvent = (event) ->
       expect(event.type).to.be.equal 'touchstart'
 
-    $('body').on 'touchstart', expectTouchStartEvent
+    $bodyElement.on 'touchstart', expectTouchStartEvent
 
     touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
     $draggableElement[0].dispatchEvent touchEvent
     expect(stopPropagationSpy).to.not.have.been.called
 
-    $('body').off 'touchstart', expectTouchStartEvent
+    $bodyElement.off 'touchstart', expectTouchStartEvent
 
 
   it 'should not propagate the touch start event given it is a :input draggable element', ->
-    $draggableElement = $('<input class="draggable"></input>')
+    $draggableElement = $ '<input class="draggable"></input>'
     $draggableElement.draggable()
 
-    $('body').append $draggableElement
+    $bodyElement.append $draggableElement
 
-    touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
-    $draggableElement[0].dispatchEvent touchEvent
+    touchEvent = createTouchEvent 'touchstart', $draggableElement.get 0
+    $draggableElement.get(0).dispatchEvent touchEvent
     expect(stopPropagationSpy).to.have.been.calledThrice
 
 
@@ -76,7 +78,7 @@ describe 'jquery-ui-touch-punch', ->
     $draggableElement = $('<div class="draggable" contenteditable></div>')
     $draggableElement.draggable()
 
-    $('body').append $draggableElement
+    $bodyElement.append $draggableElement
 
     touchEvent = createTouchEvent 'touchstart', $draggableElement[0]
     $draggableElement[0].dispatchEvent touchEvent
