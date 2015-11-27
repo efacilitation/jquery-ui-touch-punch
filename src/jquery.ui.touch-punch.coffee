@@ -1,14 +1,14 @@
 do($ = jQuery) ->
 
-  $.support.touch = 'ontouchend' in document
+  $.support.touch = 'ontouchend' of document
 
   if not $.support.touch
     return
 
-  mouseProto = $.ui.mouse.prototype
+  mouseProto = $.ui.mouse::
   _mouseInit = mouseProto._mouseInit
   _mouseDestroy = mouseProto._mouseDestroy
-  touchIsHandled = false
+  touchIsHandled = undefined
 
   simulateMouseEvent = (event, simulatedType) ->
     isMultiTouchEvent = event.originalEvent.touches.length > 1
@@ -41,13 +41,12 @@ do($ = jQuery) ->
       0,                # button
       null              # relatedTarget
     )
-
     event.target.dispatchEvent simulatedEvent
 
 
   mouseProto._touchStart = (event) ->
     # Ignore the event if another widget is already being handled
-    if touchIsHandled or not self._mouseCapture event.originalEvent.changedTouches[0]
+    if touchIsHandled or !(@_mouseCapture event.originalEvent.changedTouches[0])
       return
 
     touchIsHandled = true
@@ -59,9 +58,10 @@ do($ = jQuery) ->
     simulateMouseEvent event, 'mousemove'
     simulateMouseEvent event, 'mousedown'
 
+    return
+
 
   mouseProto._touchMove = (event) ->
-
     if not touchIsHandled
       return
 
@@ -71,6 +71,8 @@ do($ = jQuery) ->
       @_touchMoved = true
 
     simulateMouseEvent event, 'mousemove'
+
+    return
 
 
   mouseProto._getTouchCoords = (event) ->
