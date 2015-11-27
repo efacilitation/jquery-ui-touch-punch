@@ -34,11 +34,11 @@ describe 'jquery-ui-touch-punch', ->
 
 
   beforeEach ->
+    $bodyElement = $ 'body'
     stopPropagationSpy = sandbox.spy Event::, 'stopPropagation'
 
 
   afterEach ->
-    $bodyElement = $ 'body'
     $draggableElement = $bodyElement.find '.draggable'
     touchEvent = createTouchEvent 'touchend', $draggableElement[0]
     $draggableElement.get(0).dispatchEvent touchEvent
