@@ -92,6 +92,7 @@ do($ = jQuery) ->
       simulateMouseEvent event, 'click'
 
     touchIsHandled = false
+    return
 
 
   mouseProto._mouseInit = ->

@@ -117,7 +117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!this._touchMoved) {
 	      simulateMouseEvent(event, 'click');
 	    }
-	    return touchIsHandled = false;
+	    touchIsHandled = false;
 	  };
 	  mouseProto._mouseInit = function() {
 	    this.element.bind({
